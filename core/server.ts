@@ -8,7 +8,7 @@ import {logger} from "../modules/logger"
 import {database} from "../modules/database"
 import {corsConfig} from "../modules/config/corsConfig"
 import {router} from "./router"
-import {responseMiddleware} from "../modules/middlewares/response.middleware";
+import {responseMiddleware} from "../modules/middlewares/response.middleware"
 
 const server = express()
 
@@ -16,8 +16,8 @@ server.use(cors(corsConfig()))
 server.use(express.json())
 server.use(cookieParser())
 
-server.use(responseMiddleware())
 server.use("/api", router)
+server.use(responseMiddleware())
 
 const PORT = Number(config.PORT || config.DEV_PORT)
 const MODE = config.NODE_ENV || "development"

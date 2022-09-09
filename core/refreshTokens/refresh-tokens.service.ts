@@ -3,14 +3,15 @@ import * as jwt from "jsonwebtoken"
 import {PayloadUserDto} from "../users/dto/payload-user.dto"
 import {config} from "../../modules/config/config"
 import {Time} from "../../modules/Time"
-import {RefreshTokensEntity} from "./refresh-tokens.entity";
-import {EntityRefreshTokenDto} from "./dto/entity-refresh-token.dto";
+import {RefreshTokensEntity} from "./refresh-tokens.entity"
 
 export class RefreshTokensService {
 
     public static generateTokenPair(payloadUserDto : PayloadUserDto) {
         const accessTokenDurationMs = Time.convertDaysToMs(config.ACCESS_TOKEN_DURATION_DAYS)
         const refreshTokenDurationMs = Time.convertDaysToMs(config.REFRESH_TOKEN_DURATION_DAYS)
+
+        payloadUserDto = JSON.parse(JSON.stringify(payloadUserDto))
 
         const accessToken = jwt.sign(
             payloadUserDto,
@@ -36,11 +37,11 @@ export class RefreshTokensService {
         if(candidate) {
             candidate.refreshToken = refreshToken
             await candidate.save()
+            return candidate
         }
 
         const entityRefreshTokenDto = RefreshTokensEntity.create({userId, refreshToken})
         await entityRefreshTokenDto.save()
-
         return entityRefreshTokenDto
     }
 

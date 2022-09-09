@@ -1,6 +1,6 @@
 import * as typeorm from "typeorm"
 
-@typeorm.Entity()
+@typeorm.Entity({name: "users"})
 export class UsersEntity extends typeorm.BaseEntity {
 
     @typeorm.PrimaryGeneratedColumn()
@@ -12,10 +12,7 @@ export class UsersEntity extends typeorm.BaseEntity {
     @typeorm.Column()
     public password : string
 
-    @typeorm.Column()
+    @typeorm.CreateDateColumn({type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)"})
     public createdAt : Date
-
-    @typeorm.Column()
-    public updatedAt : Date
 
 }

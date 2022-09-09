@@ -29,3 +29,258 @@
 {"level":"info","message":"server has been started..."}
 {"level":"info","message":"mode: development"}
 {"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"code":"42601","driverError":{"code":"42601","file":"scan.l","length":117,"line":"1172","name":"error","position":"58","routine":"scanner_yyerror","severity":"ОШИБКА"},"file":"scan.l","length":117,"level":"error","line":"1172","position":"58","query":"ALTER TABLE \"users\" ALTER COLUMN \"createdAt\" SET DEFAULT ","routine":"scanner_yyerror","severity":"ОШИБКА"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"error","message":"отношение \"users\" не существует"}
+{"level":"error","message":"отношение \"users\" не существует"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"error","message":"отношение \"users\" не существует"}
+{"level":"error","message":"отношение \"users\" не существует"}
+{"level":"error","message":"отношение \"users\" не существует"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"error","message":"no refresh token"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"error","message":"Cannot read properties of null (reading 'remove')"}
+{"level":"error","message":"Cannot read properties of null (reading 'remove')"}
+{"level":"error","message":"Cannot read properties of null (reading 'remove')"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'refreshTokenCookieName')"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}

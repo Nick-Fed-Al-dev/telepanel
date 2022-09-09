@@ -1,7 +1,7 @@
-import {DataSourceOptions, Entity} from "typeorm";
-import {config} from "./config";
+import {BaseEntity, DataSourceOptions} from "typeorm"
+import {config} from "./config"
 
-export const postgresqlConfig = (entities : typeof Entity[]) : DataSourceOptions => ({
+export const postgresqlConfig = (entities : typeof BaseEntity[]) : DataSourceOptions => ({
     type: "postgres",
     host: config.DB_HOST,
     port: Number(config.DB_PORT),
@@ -9,5 +9,5 @@ export const postgresqlConfig = (entities : typeof Entity[]) : DataSourceOptions
     password: config.DB_PASSWORD,
     database: config.DB_NAME,
     synchronize: true,
-    entities
+    entities: [...entities]
 })

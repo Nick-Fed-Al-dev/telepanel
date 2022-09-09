@@ -1,6 +1,5 @@
 import * as bcrypt from "bcrypt"
 
-import {EntityUserDto} from "./dto/entity-user.dto"
 import {PayloadUserDto} from "./dto/payload-user.dto"
 import {RefreshTokensService} from "../refreshTokens/refresh-tokens.service"
 import {RegisterUserDto} from "./dto/register-user.dto"
@@ -9,31 +8,38 @@ import {config} from "../../modules/config/config"
 import {ApiError} from "../../modules/ApiError"
 import {LoginUserDto} from "./dto/login-user.dto"
 import {RefreshTokensEntity} from "../refreshTokens/refresh-tokens.entity"
-import {AuthorizedCredentialUserDto} from "./dto/authorized-credential-user.dto";
+import {AuthorizedCredentialUserDto} from "./dto/authorized-credential-user.dto"
 
 export class UsersService {
 
-    private static async createTokensFromUser(entityUserDto : EntityUserDto) : Promise<AuthorizedCredentialUserDto> {
+    private static async createTokensFromUser(entityUserDto : UsersEntity) : Promise<AuthorizedCredentialUserDto> {
+
         const payloadUserDto = new PayloadUserDto(entityUserDto)
+
         const tokenPair = RefreshTokensService.generateTokenPair(payloadUserDto)
+
         await RefreshTokensService.saveRefreshToken(tokenPair.refreshToken, payloadUserDto.id)
+
         const authorizedCredentialUserDto = new AuthorizedCredentialUserDto({...payloadUserDto, ...tokenPair})
+
         return authorizedCredentialUserDto
     }
 
     public static async register(registerUserDto : RegisterUserDto) : Promise<AuthorizedCredentialUserDto> {
         const candidate = await UsersEntity.findOneBy({email: registerUserDto.email})
 
-        if(candidate) {
+        if (candidate) {
             ApiError.badRequest("user with this email already exist")
         }
 
-        const hashedPassword = await bcrypt.hash(registerUserDto.password, config.PASSWORD_HASH_SALT)
+        const hashedPassword = await bcrypt.hash(registerUserDto.password, Number(config.PASSWORD_HASH_SALT))
         registerUserDto.password = hashedPassword
 
-        const entityUserDto = UsersEntity.create(registerUserDto as UsersEntity)
+        const entityUserDto = UsersEntity.create(registerUserDto as unknown as UsersEntity)
         await entityUserDto.save()
-        const authorizedCredentialUserDto = await this.createTokensFromUser(entityUserDto)
+
+        const authorizedCredentialUserDto = await UsersService.createTokensFromUser(entityUserDto)
+
         return authorizedCredentialUserDto
     }
 
@@ -50,7 +56,7 @@ export class UsersService {
             ApiError.badRequest("incorrect password")
         }
 
-        const authorizedCredentialUserDto = await this.createTokensFromUser(candidate)
+        const authorizedCredentialUserDto = await UsersService.createTokensFromUser(candidate)
 
         return authorizedCredentialUserDto
     }
@@ -59,18 +65,18 @@ export class UsersService {
         const payloadUserDto = RefreshTokensService.validateRefreshToken(refreshToken)
         const entityTokenDto = await RefreshTokensEntity.findOneBy({refreshToken})
 
-        if(!payloadUserDto || entityTokenDto) {
+        if(!payloadUserDto || !entityTokenDto) {
             ApiError.unauthorized("no refresh token")
         }
 
         const entityUserDto = await UsersEntity.findOneBy({id: payloadUserDto.id})
-        const authorizedCredentialUserDto = await this.createTokensFromUser(entityUserDto)
+        const authorizedCredentialUserDto = await UsersService.createTokensFromUser(entityUserDto)
 
         return authorizedCredentialUserDto
     }
 
     public static async logout(refreshToken : string) : Promise<void> {
         const entityTokenDto = await RefreshTokensEntity.findOneBy({refreshToken})
-        await entityTokenDto.remove()
+        await entityTokenDto?.remove()
     }
 }

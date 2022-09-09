@@ -4,10 +4,10 @@ import {config} from "../../modules/config/config"
 import {Time} from "../../modules/Time"
 import {ApiError} from "../../modules/ApiError"
 import {RegisterUserDto} from "./dto/register-user.dto"
-import {UsersService} from "./users.service";
-import {AuthorizedUserDto} from "./dto/authorized-user.dto";
-import {ApiResponse} from "../../modules/ApiResponse";
-import {LoginUserDto} from "./dto/login-user.dto";
+import {UsersService} from "./users.service"
+import {AuthorizedUserDto} from "./dto/authorized-user.dto"
+import {ApiResponse} from "../../modules/ApiResponse"
+import {LoginUserDto} from "./dto/login-user.dto"
 
 export class UsersController {
 
@@ -15,7 +15,7 @@ export class UsersController {
 
     private static pushRefreshTokenCookie(res : express.Response, refreshToken : string) {
         res.cookie(
-            this.refreshTokenCookieName,
+            UsersController.refreshTokenCookieName,
             refreshToken,
             {
                 maxAge: Time.convertDaysToMs(config.REFRESH_TOKEN_DURATION_DAYS),
@@ -34,9 +34,11 @@ export class UsersController {
 
             const authorizedUserDto = new AuthorizedUserDto(authorizedCredentialUserDto)
 
-            this.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
+            UsersController.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
 
-            next(ApiResponse.created("user registered", authorizedUserDto))
+            const response = ApiResponse.created("user registered", authorizedUserDto)
+
+            next(response)
 
         } catch (error : any) {
             next(error)
@@ -53,9 +55,11 @@ export class UsersController {
 
             const authorizedUserDto = new AuthorizedUserDto(authorizedCredentialUserDto)
 
-            this.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
+            UsersController.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
 
-            next(ApiResponse.created("user logged in", authorizedUserDto))
+            const response = ApiResponse.created("user logged in", authorizedUserDto)
+
+            next(response)
 
         } catch (error : any) {
             next(error)
@@ -72,9 +76,11 @@ export class UsersController {
 
             const authorizedUserDto = new AuthorizedUserDto(authorizedCredentialUserDto)
 
-            this.pushRefreshTokenCookie(res, refreshToken)
+            UsersController.pushRefreshTokenCookie(res, refreshToken)
 
-            next(ApiResponse.created("authorization updated", authorizedUserDto))
+            const response = ApiResponse.created("authorization updated", authorizedUserDto)
+
+            next(response)
 
         } catch (error : any) {
             next(error)
@@ -87,11 +93,14 @@ export class UsersController {
 
             const {refreshToken} = req.cookies
 
+            console.log(refreshToken)
             await UsersService.logout(refreshToken)
 
-            res.clearCookie(this.refreshTokenCookieName)
+            res.clearCookie(UsersController.refreshTokenCookieName)
 
-            next(ApiResponse.created("user logged out"))
+            const response = ApiResponse.created("user logged out")
+
+            next(response)
 
         } catch (error : any) {
             next(error)

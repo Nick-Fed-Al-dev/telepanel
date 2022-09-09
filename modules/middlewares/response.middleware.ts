@@ -8,6 +8,7 @@ import {ApiResponse} from "../ApiResponse"
 export const responseMiddleware = () => {
 
     return (data : any, req : express.Request, res : express.Response, next : express.NextFunction) => {
+
         if(data instanceof Error) {
             logger.error(data.message)
 

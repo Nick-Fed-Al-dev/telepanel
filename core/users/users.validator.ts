@@ -14,31 +14,10 @@ export class UsersValidator {
             .isLength({min: 6})
     }
 
-    private static validateFirstName(){
-        return validator
-            .check('firstName', 'first name should have length')
-            .isLength({min: 1})
-    }
-
-    private static validateSecondName(){
-        return validator
-            .check('secondName', 'second name should have length')
-            .isLength({min: 1})
-    }
-
-    private static validateAge(){
-        return validator
-            .check('age', 'age should be a number more then 4 less then 150')
-            .isFloat({min: 4, max: 150})
-    }
-
     public static validateRegister(){
         return [
-            this.validateAge(),
             this.validateEmail(),
-            this.validateFirstName(),
-            this.validatePassword(),
-            this.validateSecondName()
+            this.validatePassword()
         ]
     }
 
