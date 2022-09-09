@@ -25,3 +25,7 @@
 {"level":"info","message":"server has been started..."}
 {"level":"info","message":"mode: undefined"}
 {"level":"info","message":"port: 11920"}
+{"level":"info","message":"database was initialized"}
+{"level":"info","message":"server has been started..."}
+{"level":"info","message":"mode: development"}
+{"level":"info","message":"port: 11920"}

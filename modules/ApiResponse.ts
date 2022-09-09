@@ -1,12 +1,21 @@
+import {HttpStatus} from "./HttpStatus";
 
 export class ApiResponse {
     public message : string
     public code : number
-    public data : any
+    public data? : any
 
-    constructor(message : string, code : number, data : any) {
+    constructor(message : string, code : number, data? : any) {
         this.message = message
         this.code = code
         this.data = data
+    }
+
+    public static ok(message = "ok", data? : any) {
+        return new ApiResponse(message, HttpStatus.OK, data)
+    }
+
+    public static created(message = "created", data? : any) {
+        return new ApiResponse(message, HttpStatus.CREATED, data)
     }
 }

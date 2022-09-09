@@ -1,8 +1,9 @@
 import * as express from "express"
+
 import {ApiError} from "../ApiError"
-import {logger} from "../logger";
-import {HttpStatus} from "../HttpStatus";
-import {ApiResponse} from "../ApiResponse";
+import {logger} from "../logger"
+import {HttpStatus} from "../HttpStatus"
+import {ApiResponse} from "../ApiResponse"
 
 export const responseMiddleware = () => {
 

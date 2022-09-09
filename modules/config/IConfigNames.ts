@@ -8,4 +8,10 @@ export interface IConfigNames {
     DB_PASSWORD: string
     DB_USERNAME: string
     DB_NAME: string
+
+    REFRESH_TOKEN_DURATION_DAYS: string
+    ACCESS_TOKEN_DURATION_DAYS: string
+    REFRESH_TOKEN_SECRET: string
+    ACCESS_TOKEN_SECRET: string
+    PASSWORD_HASH_SALT: string
 }
