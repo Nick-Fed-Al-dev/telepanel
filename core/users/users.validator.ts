@@ -1,5 +1,8 @@
 import * as validator from "express-validator"
 
+// класс для валидации запросов
+// каждый метод возвращает цепи валидаций
+// валидация представляет собой условие типа isEmail
 export class UsersValidator {
 
     private static validateEmail(){

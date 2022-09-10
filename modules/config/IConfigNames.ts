@@ -1,3 +1,5 @@
+
+// перечисляем все наименования из .еnv
 export interface IConfigNames {
     PORT?: string
     DEV_PORT: string

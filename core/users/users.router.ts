@@ -3,8 +3,10 @@ import * as express from "express"
 import {UsersController} from "./users.conroller"
 import {UsersValidator} from "./users.validator"
 
+// создаем экземпляр роутера
 export const usersRouter = express.Router()
 
+// перечисляем роуты отвечающие за авторизацию
 usersRouter.post("/register", UsersValidator.validateRegister(), UsersController.register)
 
 usersRouter.post("/login", UsersValidator.validateLogin(), UsersController.login)

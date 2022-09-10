@@ -1,5 +1,6 @@
-import {HttpStatus} from "./HttpStatus";
+import {HttpStatus} from "./HttpStatus"
 
+// класс создан для единообразной обработки ответов сервера
 export class ApiResponse {
     public message : string
     public code : number

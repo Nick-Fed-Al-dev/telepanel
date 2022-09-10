@@ -2,6 +2,7 @@ import * as express from "express"
 import * as validator from "express-validator"
 import {HttpStatus} from "./HttpStatus"
 
+// класс создан для единообразной обработки ошибок
 export class ApiError extends Error {
     public message : string
     public code : number

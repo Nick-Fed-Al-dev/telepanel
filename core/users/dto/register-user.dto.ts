@@ -1,4 +1,5 @@
 
+// класс описывает обьект который требуется для регистрации пользователя
 export class RegisterUserDto {
     public email : string
     public password : string

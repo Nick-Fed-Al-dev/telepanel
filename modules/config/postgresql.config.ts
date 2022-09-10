@@ -1,6 +1,8 @@
 import {BaseEntity, DataSourceOptions} from "typeorm"
 import {config} from "./config"
 
+// конфигурируем базу данных
+// аргументов принимаем массив сущностей базы
 export const postgresqlConfig = (entities : typeof BaseEntity[]) : DataSourceOptions => ({
     type: "postgres",
     host: config.DB_HOST,
