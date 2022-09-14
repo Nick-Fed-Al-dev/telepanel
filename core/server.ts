@@ -9,6 +9,7 @@ import {database} from "../modules/database"
 import {corsConfig} from "../modules/config/cors.config"
 import {router} from "./router"
 import {responseMiddleware} from "../modules/middlewares/response.middleware"
+import {validationMiddleware} from "../modules/middlewares/validation.middleware"
 
 // создаем экземпляр приложения
 const server = express()
@@ -20,6 +21,7 @@ server.use(cookieParser())
 
 // кастомные middlewares
 server.use("/api", router)
+server.use(validationMiddleware())
 server.use(responseMiddleware())
 
 // Выводим в отдельные константы данные для запуска сервера

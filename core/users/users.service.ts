@@ -1,4 +1,5 @@
 import * as bcrypt from "bcrypt"
+import * as uuid from "uuid"
 
 import {PayloadUserDto} from "./dto/payload-user.dto"
 import {RefreshTokensService} from "../refreshTokens/refresh-tokens.service"
@@ -9,6 +10,7 @@ import {ApiError} from "../../modules/ApiError"
 import {LoginUserDto} from "./dto/login-user.dto"
 import {RefreshTokensEntity} from "../refreshTokens/refresh-tokens.entity"
 import {AuthorizedCredentialUserDto} from "./dto/authorized-credential-user.dto"
+import {Mailer} from "../../modules/mailer/Mailer"
 
 // класс нужен для организации бизнес-логики запросов к /api/users
 export class UsersService {
@@ -31,6 +33,18 @@ export class UsersService {
         return authorizedCredentialUserDto
     }
 
+    public static async activate(activationCode : string) {
+
+        const entityUsersDto = await UsersEntity.findOneBy({activationCode})
+
+        if(!entityUsersDto) {
+            ApiError.notFound("no user with this activation code found")
+        }
+
+        entityUsersDto.isActivated = true
+        await entityUsersDto.save()
+    }
+
     // метод отвечает за создание сущности пользователя в базе и сопутствующею логику
     public static async register(registerUserDto : RegisterUserDto) : Promise<AuthorizedCredentialUserDto> {
         // пробуем найти пользователя по email
@@ -41,13 +55,22 @@ export class UsersService {
             ApiError.badRequest("user with this email already exist")
         }
 
+        let entityUserDto = registerUserDto as unknown as UsersEntity
+
         // хэшируем пароль и заменяем его в обьекте регистрации
-        const hashedPassword = await bcrypt.hash(registerUserDto.password, Number(config.PASSWORD_HASH_SALT))
-        registerUserDto.password = hashedPassword
+        const hashedPassword = await bcrypt.hash(entityUserDto.password, Number(config.PASSWORD_HASH_SALT))
+        const activationCode = uuid.v4()
+
+        entityUserDto.password = hashedPassword
+        entityUserDto.activationCode = activationCode
 
         // создаем и сохраняем сущность в базе
-        const entityUserDto = UsersEntity.create(registerUserDto as unknown as UsersEntity)
+        entityUserDto = UsersEntity.create(registerUserDto as unknown as UsersEntity)
         await entityUserDto.save()
+
+        const activationLink = `${config.APP_URL}/api/activate/${entityUserDto.activationCode}`
+        const mailer = new Mailer()
+        await mailer.sendActivationMail(entityUserDto.email, activationLink)
 
         // создаем токены и на выход получаем обьект со всем нам нужным
         const authorizedCredentialUserDto = await UsersService.createTokensFromUser(entityUserDto)

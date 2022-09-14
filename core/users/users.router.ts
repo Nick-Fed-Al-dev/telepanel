@@ -7,6 +7,8 @@ import {UsersValidator} from "./users.validator"
 export const usersRouter = express.Router()
 
 // перечисляем роуты отвечающие за авторизацию
+usersRouter.get("/activate/:code", UsersValidator.validateActivation(), UsersController.activate)
+
 usersRouter.post("/register", UsersValidator.validateRegister(), UsersController.register)
 
 usersRouter.post("/login", UsersValidator.validateLogin(), UsersController.login)

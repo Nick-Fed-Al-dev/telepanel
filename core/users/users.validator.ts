@@ -7,13 +7,13 @@ export class UsersValidator {
 
     private static validateEmail(){
         return validator
-            .check('email', 'incorrect email format')
+            .check("email", "incorrect email format")
             .isEmail()
     }
 
     private static validatePassword(){
         return validator
-            .check('password', 'password min length is 6')
+            .check("password", "password min length is 6")
             .isLength({min: 6})
     }
 
@@ -31,10 +31,18 @@ export class UsersValidator {
         ]
     }
 
+    public static validateActivation() {
+        return [
+            validator
+                .param("code", "request params should contain uuid code")
+                .isUUID()
+        ]
+    }
+
     public static validateCookie(){
         return [
             validator
-                .cookie('refreshToken', 'cookies should contain refresh token')
+                .cookie("refreshToken", "cookies should contain refresh token")
                 .isJWT()
         ]
     }

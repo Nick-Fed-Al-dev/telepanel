@@ -13,6 +13,12 @@ export class UsersEntity extends typeorm.BaseEntity {
     @typeorm.Column()
     public password : string
 
+    @typeorm.Column({default: false})
+    public isActivated : boolean
+
+    @typeorm.Column()
+    public activationCode : string
+
     @typeorm.CreateDateColumn({type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)"})
     public createdAt : Date
 

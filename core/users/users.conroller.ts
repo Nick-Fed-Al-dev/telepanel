@@ -27,12 +27,25 @@ export class UsersController {
         )
     }
 
+    public static async activate(req : express.Request, res : express.Response, next : express.NextFunction) {
+        try {
+            const activationCode = req.params.code
+
+            await UsersService.activate(activationCode)
+
+            res.redirect(config.APP_URL)
+
+            const response = ApiResponse.ok("user account was activated")
+
+            next(response)
+        } catch (error : any) {
+            next(error)
+        }
+    }
+
     // метод отвечает за обработку запросов на /api/users/register
     public static async register(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
-            // проверяем запрос на нужные нам данные
-            ApiError.validateRequest(req)
-
             // получаем обьект регистрации из тела запроса
             const registerUserDto : RegisterUserDto = req.body
 
@@ -59,9 +72,6 @@ export class UsersController {
     // метод отвечает за обработку запросов на /api/users/login
     public static async login(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
-            // проверяем запрос на нужные нам данные
-            ApiError.validateRequest(req)
-
             // получяем обьект входа из тела запроса
             const loginUserDto : LoginUserDto = req.body
 
@@ -88,9 +98,6 @@ export class UsersController {
     // метод отвечает за обработку запросов на /api/users/refresh
     public static async refresh(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
-            // проверяем запрос на нужные нам данные
-            ApiError.validateRequest(req)
-
             // получаем refresh токен из cookie
             const {refreshToken} = req.cookies
 
@@ -117,9 +124,6 @@ export class UsersController {
     // метод отвечает за обработку запросов на /api/users/logout
     public static async logout(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
-            // проверяем запрос на нужные нам данные
-            ApiError.validateRequest(req)
-
             // получаем refresh токен из cookie
             const {refreshToken} = req.cookies
 
