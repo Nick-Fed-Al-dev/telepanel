@@ -68,7 +68,7 @@ export class UsersService {
         entityUserDto = UsersEntity.create(registerUserDto as unknown as UsersEntity)
         await entityUserDto.save()
 
-        const activationLink = `${config.APP_URL}/api/activate/${entityUserDto.activationCode}`
+        const activationLink = `${config.APP_URL}/api/users/activate/${entityUserDto.activationCode}`
         const mailer = new Mailer()
         await mailer.sendActivationMail(entityUserDto.email, activationLink)
 

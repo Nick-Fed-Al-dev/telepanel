@@ -8,6 +8,7 @@ import {UsersService} from "./users.service"
 import {AuthorizedUserDto} from "./dto/authorized-user.dto"
 import {ApiResponse} from "../../modules/ApiResponse"
 import {LoginUserDto} from "./dto/login-user.dto"
+import {HttpStatus} from "../../modules/HttpStatus";
 
 // класс предостовляет методы для обработки запросов на /api/users
 // методы класса работают с http и взаимодействуют с users service
@@ -33,11 +34,8 @@ export class UsersController {
 
             await UsersService.activate(activationCode)
 
-            res.redirect(config.APP_URL)
-
-            const response = ApiResponse.ok("user account was activated")
-
-            next(response)
+            res.redirect(HttpStatus.OK, config.APP_URL)
+            // TODO: Реализовать отправку html файла с ссылкой на клиент
         } catch (error : any) {
             next(error)
         }

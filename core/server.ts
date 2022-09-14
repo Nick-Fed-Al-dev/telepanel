@@ -41,7 +41,6 @@ export const start = async () => {
         // запускаем базу данных
         await database.initialize()
         logger.info("database was initialized")
-
         // запускаем сервер
         server.listen(PORT, () => {
             logger.info(`server has been started...`)
