@@ -28,12 +28,16 @@ export class UsersController {
         )
     }
 
+    // метод отвечает за обработку запросов на /api/users/activate/:code
     public static async activate(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
+            // получаем код активации из параметров запроса
             const activationCode = req.params.code
 
+            // активируем аккаунт
             await UsersService.activate(activationCode)
 
+            // перенаправляем пользователя на клиент
             res.redirect(HttpStatus.OK, config.APP_URL)
             // TODO: Реализовать отправку html файла с ссылкой на клиент
         } catch (error : any) {

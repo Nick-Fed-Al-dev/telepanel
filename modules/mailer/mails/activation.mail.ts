@@ -1,4 +1,5 @@
 
+// функция возвращает обьект с темой письма и разметкой
 export const activationMail = (link : string) => ({
     title: "",
     markup: `

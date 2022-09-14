@@ -1,5 +1,6 @@
 import {HttpStatus} from "./HttpStatus"
 
+// TODO: реализовать сценарий отправки файлов
 // класс создан для единообразной обработки ответов сервера
 export class ApiResponse {
     public message : string

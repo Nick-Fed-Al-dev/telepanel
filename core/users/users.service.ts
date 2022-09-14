@@ -33,14 +33,18 @@ export class UsersService {
         return authorizedCredentialUserDto
     }
 
+    // метод отвечает за активацию аккаунта пользователя
     public static async activate(activationCode : string) {
 
+        // получаем пользователя из базы по коду активации
         const entityUsersDto = await UsersEntity.findOneBy({activationCode})
 
+        // если пользователя нет выбрасываем ошибку not found
         if(!entityUsersDto) {
             ApiError.notFound("no user with this activation code found")
         }
 
+        // ставим флаг isActivated в позицию true и сохраняем обьект пользователя
         entityUsersDto.isActivated = true
         await entityUsersDto.save()
     }
