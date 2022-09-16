@@ -1,12 +1,12 @@
 import * as jwt from "jsonwebtoken"
 
-import {PayloadUserDto} from "../users/dto/payload-user.dto"
+import {PayloadUserDto} from "../user/dto/payload-user.dto"
 import {config} from "../../modules/config/config"
 import {Time} from "../../modules/Time"
-import {RefreshTokensEntity} from "./refresh-tokens.entity"
+import {RefreshTokenEntity} from "./refresh-token.entity"
 
 // класс нужен для осуществления бизнес-логики с refresh токенами
-export class RefreshTokensService {
+export class RefreshTokenService {
 
     // метод для создания пары токенов
     public static generateTokenPair(payloadUserDto : PayloadUserDto) {
@@ -41,7 +41,7 @@ export class RefreshTokensService {
     // метод для сохранения refresh токена в базе
     public static async saveRefreshToken(refreshToken : string, userId : number) {
         // пробуем найти токен в базе
-        const candidate = await RefreshTokensEntity.findOneBy({userId})
+        const candidate = await RefreshTokenEntity.findOneBy({userId})
 
         // если сущность в базе уже есть - заменяем токен на новый и сохраняем
         if(candidate) {
@@ -51,7 +51,7 @@ export class RefreshTokensService {
         }
 
         // если токена нет - создаем и сохраняем
-        const entityRefreshTokenDto = RefreshTokensEntity.create({userId, refreshToken})
+        const entityRefreshTokenDto = RefreshTokenEntity.create({userId, refreshToken})
         await entityRefreshTokenDto.save()
 
         return entityRefreshTokenDto
@@ -60,7 +60,7 @@ export class RefreshTokensService {
     // метод для удаления токена в базе
     public static async removeRefreshToken(refreshToken : string) {
         // находим сущность в базе и удаляем
-        const entityRefreshTokenDto = await RefreshTokensEntity.findOneBy({refreshToken})
+        const entityRefreshTokenDto = await RefreshTokenEntity.findOneBy({refreshToken})
         await entityRefreshTokenDto.remove()
     }
 

@@ -2,24 +2,23 @@ import * as express from "express"
 
 import {config} from "../../modules/config/config"
 import {Time} from "../../modules/Time"
-import {ApiError} from "../../modules/ApiError"
 import {RegisterUserDto} from "./dto/register-user.dto"
-import {UsersService} from "./users.service"
+import {UserService} from "./user.service"
 import {AuthorizedUserDto} from "./dto/authorized-user.dto"
 import {ApiResponse} from "../../modules/ApiResponse"
 import {LoginUserDto} from "./dto/login-user.dto"
-import {HttpStatus} from "../../modules/HttpStatus";
+import {HttpStatus} from "../../modules/HttpStatus"
 
 // класс предостовляет методы для обработки запросов на /api/users
 // методы класса работают с http и взаимодействуют с users service
-export class UsersController {
+export class UserController {
 
     static refreshTokenCookieName = "refreshToken"
 
     // приватный метод устанавливает refresh токен в cookie
     private static pushRefreshTokenCookie(res : express.Response, refreshToken : string) {
         res.cookie(
-            UsersController.refreshTokenCookieName,
+            UserController.refreshTokenCookieName,
             refreshToken,
             {
                 maxAge: Time.convertDaysToMs(config.REFRESH_TOKEN_DURATION_DAYS),
@@ -35,7 +34,7 @@ export class UsersController {
             const activationCode = req.params.code
 
             // активируем аккаунт
-            await UsersService.activate(activationCode)
+            await UserService.activate(activationCode)
 
             // перенаправляем пользователя на клиент
             res.redirect(HttpStatus.OK, config.APP_URL)
@@ -52,13 +51,13 @@ export class UsersController {
             const registerUserDto : RegisterUserDto = req.body
 
             // получаем обьект с данными пользователя и токенами
-            const authorizedCredentialUserDto = await UsersService.register(registerUserDto)
+            const authorizedCredentialUserDto = await UserService.register(registerUserDto)
 
             // убираем refresh токен из обьекта ради безопасности
             const authorizedUserDto = new AuthorizedUserDto(authorizedCredentialUserDto)
 
             // устанавливаем refresh токен cookie
-            UsersController.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
+            UserController.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
 
             // формируем ответ сервера
             const response = ApiResponse.created("user registered", authorizedUserDto)
@@ -78,13 +77,13 @@ export class UsersController {
             const loginUserDto : LoginUserDto = req.body
 
             // получаем авторизованого пользователя
-            const authorizedCredentialUserDto = await UsersService.login(loginUserDto)
+            const authorizedCredentialUserDto = await UserService.login(loginUserDto)
 
             // убираем refresh токен ради безопасности
             const authorizedUserDto = new AuthorizedUserDto(authorizedCredentialUserDto)
 
             // устанавливаем refresh токен в cookie
-            UsersController.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
+            UserController.pushRefreshTokenCookie(res, authorizedCredentialUserDto.refreshToken)
 
             // формируем ответ сервера
             const response = ApiResponse.created("user logged in", authorizedUserDto)
@@ -104,13 +103,13 @@ export class UsersController {
             const {refreshToken} = req.cookies
 
             // получаем авторизованного пользователя
-            const authorizedCredentialUserDto = await UsersService.refresh(refreshToken)
+            const authorizedCredentialUserDto = await UserService.refresh(refreshToken)
 
             // убираем refresh токен ради безопасности
             const authorizedUserDto = new AuthorizedUserDto(authorizedCredentialUserDto)
 
             // устанавливаем refresh токен в cookie
-            UsersController.pushRefreshTokenCookie(res, refreshToken)
+            UserController.pushRefreshTokenCookie(res, refreshToken)
 
             // формируем ответ сервера
             const response = ApiResponse.created("authorization updated", authorizedUserDto)
@@ -130,10 +129,10 @@ export class UsersController {
             const {refreshToken} = req.cookies
 
             // удаляем токен в базе
-            await UsersService.logout(refreshToken)
+            await UserService.logout(refreshToken)
 
             // убираем refresh токен из cookie
-            res.clearCookie(UsersController.refreshTokenCookieName)
+            res.clearCookie(UserController.refreshTokenCookieName)
 
             // формируем ответ сервера
             const response = ApiResponse.created("user logged out")

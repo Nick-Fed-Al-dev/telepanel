@@ -1,8 +1,8 @@
 import * as typeorm from "typeorm"
 
 // описываем сущность пользователя в базе
-@typeorm.Entity({name: "users"})
-export class UsersEntity extends typeorm.BaseEntity {
+@typeorm.Entity({name: "user"})
+export class UserEntity extends typeorm.BaseEntity {
 
     @typeorm.PrimaryGeneratedColumn()
     public id : number

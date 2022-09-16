@@ -1,9 +1,9 @@
 import * as express from "express"
 
-import {usersRouter} from "./users/users.router"
+import {userRouter} from "./user/user.router"
 
 // создаем главный роут
 export const router = express.Router()
 
 // перечисляем точки входа
-router.use("/users", usersRouter)
+router.use("/user", userRouter)
