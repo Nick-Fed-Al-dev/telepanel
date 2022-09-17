@@ -11,6 +11,9 @@ import {LoginUserDto} from "./dto/login-user.dto"
 import {RefreshTokenEntity} from "../refreshToken/refresh-token.entity"
 import {AuthorizedCredentialUserDto} from "./dto/authorized-credential-user.dto"
 import {Mailer} from "../../modules/mailer/Mailer"
+import {TariffService} from "../tariff/tariff.service";
+import {CreateTariffDto} from "../tariff/dto/create-tariff.dto";
+import {ChargeService} from "../charge/charge.service";
 
 export class UserService {
 
@@ -37,6 +40,8 @@ export class UserService {
 
         entityUserDto.isActivated = true
         await entityUserDto.save()
+
+        await ChargeService.createCharge(entityUserDto.id)
     }
 
     public static async register(registerUserDto : RegisterUserDto) : Promise<AuthorizedCredentialUserDto> {
@@ -57,6 +62,9 @@ export class UserService {
 
         entityUserDto = UserEntity.create(registerUserDto as unknown as UserEntity)
         await entityUserDto.save()
+
+        const createTariffDto = new CreateTariffDto({userId: entityUserDto.id, name: config.FREE_TRIAL_TARIFF_NAME, period: config.FREE_TRIAL_DURATION_DAYS})
+        const entityTariffDto = TariffService.createTariff(createTariffDto)
 
         const activationLink = `${config.APP_URL}/api/users/activate/${entityUserDto.activationCode}`
         const mailer = new Mailer()

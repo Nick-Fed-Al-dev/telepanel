@@ -20,6 +20,10 @@ export class ApiError extends Error {
         throw new ApiError(message, HttpStatus.UNAUTHORIZED)
     }
 
+    static noAccess(message = "you have no access") {
+        throw new ApiError(message, HttpStatus.FORBIDDEN)
+    }
+
     static notFound(message = "not found") {
         throw new ApiError(message, HttpStatus.NOT_FOUND)
     }

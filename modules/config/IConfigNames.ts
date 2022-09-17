@@ -21,4 +21,7 @@ export interface IConfigNames {
     SMTP_PORT: string
     SMTP_USER: string
     SMTP_PASSWORD: string
+
+    FREE_TRIAL_DURATION_DAYS: string
+    FREE_TRIAL_TARIFF_NAME: string
 }
