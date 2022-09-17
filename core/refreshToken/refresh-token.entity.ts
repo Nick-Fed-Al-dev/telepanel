@@ -1,6 +1,6 @@
 import * as typeorm from "typeorm"
 
-@typeorm.Entity({name: "refreshToken"})
+@typeorm.Entity({name: "Refresh_Tokens"})
 export class RefreshTokenEntity extends typeorm.BaseEntity{
 
     @typeorm.PrimaryGeneratedColumn()

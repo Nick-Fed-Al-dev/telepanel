@@ -17,7 +17,7 @@ export class ChargeService {
 
     public static async createCharge(userId : number) {
         const tariffEntity = await TariffEntity.findOneBy({userId})
-        const createChargeDto = new CreateChargeDto({...tariffEntity, expiresIn: tariffEntity.period})
+        const createChargeDto = new CreateChargeDto({tariffId: tariffEntity.id, expiresIn: tariffEntity.period})
 
         const chargeEntity = ChargeEntity.create(createChargeDto as unknown as ChargeEntity)
         await chargeEntity.save()

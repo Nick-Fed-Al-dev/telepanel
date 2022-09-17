@@ -40,8 +40,7 @@ export class UserController {
 
     public static async register(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
-
-            const registerUserDto : RegisterUserDto = req.body
+            const registerUserDto = new RegisterUserDto(req.body)
 
             const authorizedCredentialUserDto = await UserService.register(registerUserDto)
 

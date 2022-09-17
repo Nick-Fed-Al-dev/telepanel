@@ -64,9 +64,9 @@ export class UserService {
         await entityUserDto.save()
 
         const createTariffDto = new CreateTariffDto({userId: entityUserDto.id, name: config.FREE_TRIAL_TARIFF_NAME, period: config.FREE_TRIAL_DURATION_DAYS})
-        const entityTariffDto = TariffService.createTariff(createTariffDto)
+        await TariffService.createTariff(createTariffDto)
 
-        const activationLink = `${config.APP_URL}/api/users/activate/${entityUserDto.activationCode}`
+        const activationLink = `${config.APP_URL}/api/user/activate/${entityUserDto.activationCode}`
         const mailer = new Mailer()
         await mailer.sendActivationMail(entityUserDto.email, activationLink)
 
