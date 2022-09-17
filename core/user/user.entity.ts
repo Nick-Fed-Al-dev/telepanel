@@ -1,6 +1,5 @@
 import * as typeorm from "typeorm"
 
-// описываем сущность пользователя в базе
 @typeorm.Entity({name: "user"})
 export class UserEntity extends typeorm.BaseEntity {
 

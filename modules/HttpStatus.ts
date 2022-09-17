@@ -1,5 +1,4 @@
 
-// отдельный enum http статус-кодов для избежания использования магических чисел
 export enum HttpStatus {
     CONTINUE = 100,
     SWITCHING_PROTOCOLS = 101,

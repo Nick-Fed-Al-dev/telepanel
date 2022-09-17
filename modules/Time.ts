@@ -1,5 +1,5 @@
 
-// класс нужен для перевода времени в разные единицы измерения
+
 export class Time {
 
     static convertDaysToMs(days : number | string) {

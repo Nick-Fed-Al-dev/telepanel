@@ -1,5 +1,4 @@
 
-// класс описывает обьект который будет шифроваться в jwt
 export class PayloadUserDto {
     public id : number
     public email : string
