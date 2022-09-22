@@ -1,10 +1,12 @@
 import * as express from "express"
 
-import {ChargeValidator} from "./charge.validator"
 import {ChargeController} from "./charge.controller"
+import {authMiddleware} from "../../modules/middlewares/auth.middleware"
 
 export const chargeRouter = express.Router()
 
-chargeRouter.get("/:userId", ChargeValidator.validateParamUserId(), ChargeController.getCharge)
+chargeRouter.use(authMiddleware())
 
-chargeRouter.get("/recharge/:userId", ChargeValidator.validateParamUserId(), ChargeController.recharge)
+chargeRouter.get("/", ChargeController.getCharge)
+
+chargeRouter.get("/recharge", ChargeController.recharge)

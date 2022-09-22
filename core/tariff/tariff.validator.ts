@@ -42,10 +42,4 @@ export class TariffValidator {
         ]
     }
 
-    public static validateUpdate() {
-        return [
-            ...TariffValidator.validateChanges(),
-            ...TariffValidator.validateParamUserId()
-        ]
-    }
 }

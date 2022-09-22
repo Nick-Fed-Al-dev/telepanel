@@ -1,4 +1,4 @@
-import {TariffNames} from "../types/TariffNames"
+import {TariffNames} from "../../../modules/types/TariffNames"
 import {EntityTariffDto} from "./entity-tariff.dto"
 
 export class UpdateTariffDto {

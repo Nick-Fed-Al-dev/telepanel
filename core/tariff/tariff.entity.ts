@@ -1,8 +1,8 @@
 import * as typeorm from "typeorm"
 
-import {TariffNames} from "./types/TariffNames"
+import {TariffNames} from "../../modules/types/TariffNames"
 
-@typeorm.Entity({name: "Tariffs"})
+@typeorm.Entity("Tariffs")
 export class TariffEntity extends typeorm.BaseEntity {
 
     @typeorm.PrimaryGeneratedColumn()

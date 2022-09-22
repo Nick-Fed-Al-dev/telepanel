@@ -2,12 +2,13 @@ import * as express from "express"
 
 import {ChargeService} from "./charge.service"
 import {ApiResponse} from "../../modules/ApiResponse"
+import {RequestExtended} from "../../modules/types/RequestExtended"
 
 export class ChargeController {
 
-    public static async getCharge(req : express.Request, res : express.Response, next : express.NextFunction) {
+    public static async getCharge(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
-            const userId = Number(req.params.userId)
+            const userId = req.user.id
 
             const entityChargeDto = await ChargeService.getCharge(userId)
 
@@ -20,9 +21,9 @@ export class ChargeController {
         }
     }
 
-    public static async recharge(req : express.Request, res : express.Response, next : express.NextFunction) {
+    public static async recharge(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
-            const userId = Number(req.params.userId)
+            const userId = req.user.id
 
             const entityChargeDto = await ChargeService.recharge(userId)
 

@@ -1,16 +1,14 @@
 import * as express from "express"
 
-import {PayloadUserDto} from "../../core/user/dto/payload-user.dto"
 import {ChargeService} from "../../core/charge/charge.service"
 import {ApiError} from "../ApiError"
+import {RequestExtended} from "../types/RequestExtended"
 
 export const chargeMiddleware = () => {
 
-    return async (req : express.Request, res : express.Response & any, next : express.NextFunction) => {
+    return async (req : RequestExtended, res : express.Response, next : express.NextFunction) => {
         try {
-
-            const payloadUserDto = new PayloadUserDto(res.user)
-            const entityChargeDto = await ChargeService.updateCharge(payloadUserDto.id)
+            const entityChargeDto = await ChargeService.updateCharge(req.user.id)
 
             if(!entityChargeDto.expiresIn) {
                 ApiError.noAccess("your charge expired")

@@ -24,4 +24,7 @@ export interface IConfigNames {
 
     FREE_TRIAL_DURATION_DAYS: string
     FREE_TRIAL_TARIFF_NAME: string
+
+    TELEGRAM_API_ID: string
+    TELEGRAM_API_HASH: string
 }

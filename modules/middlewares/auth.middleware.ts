@@ -2,10 +2,11 @@ import * as express from "express"
 
 import {RefreshTokenService} from "../../core/refreshToken/refresh-token.service"
 import {ApiError} from "../ApiError"
+import {RequestExtended} from "../types/RequestExtended"
 
-export const authMiddleware = () => {
+export const authMiddleware = () : any => {
 
-    return (req : express.Request, res : express.Response & any, next : express.NextFunction) => {
+    return (req : RequestExtended, res : express.Response, next : express.NextFunction) => {
         try {
 
             const accessToken = req.headers?.authorization?.split(" ")[1]
@@ -16,7 +17,7 @@ export const authMiddleware = () => {
                 ApiError.unauthorized()
             }
 
-            res.user = payloadUserDto
+            req.user = payloadUserDto
 
             next()
 

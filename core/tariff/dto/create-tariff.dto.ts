@@ -1,4 +1,4 @@
-import {TariffNames} from "../types/TariffNames"
+import {TariffNames} from "../../../modules/types/TariffNames"
 
 export class CreateTariffDto {
 

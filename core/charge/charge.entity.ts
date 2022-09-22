@@ -1,6 +1,6 @@
 import * as typeorm from "typeorm"
 
-@typeorm.Entity({name: "Charges"})
+@typeorm.Entity("Charges")
 export class ChargeEntity extends typeorm.BaseEntity {
 
     @typeorm.PrimaryGeneratedColumn()

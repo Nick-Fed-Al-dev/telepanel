@@ -1,8 +1,8 @@
 import {ChargeEntity} from "./charge.entity"
 import {TariffEntity} from "../tariff/tariff.entity"
-import {EntityChargeDto} from "./dto/entity-charge.dto";
-import {CreateChargeDto} from "./dto/create-charge.dto";
-import {Time} from "../../modules/Time";
+import {EntityChargeDto} from "./dto/entity-charge.dto"
+import {CreateChargeDto} from "./dto/create-charge.dto"
+import {Time} from "../../modules/Time"
 
 export class ChargeService {
 
