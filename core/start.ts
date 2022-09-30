@@ -2,6 +2,8 @@ import * as express from "express"
 import * as path from "path"
 import * as cors from "cors"
 import * as cookieParser from "cookie-parser"
+import * as http from "http"
+import * as SocketIO from "socket.io"
 
 import {config} from "../modules/config/config"
 import {logger} from "../modules/logger"
@@ -11,21 +13,23 @@ import {router} from "./router"
 import {responseMiddleware} from "../modules/middlewares/response.middleware"
 import {validationMiddleware} from "../modules/middlewares/validation.middleware"
 
-const server = express()
+const app = express()
 
-server.use(cors(corsConfig()))
-server.use(express.json())
-server.use(cookieParser())
+const server = http.createServer(app)
 
-server.use("/api", router)
-server.use(validationMiddleware())
-server.use(responseMiddleware())
+app.use(cors(corsConfig()))
+app.use(express.json())
+app.use(cookieParser())
+
+app.use("/api", router)
+app.use(validationMiddleware())
+app.use(responseMiddleware())
 
 const PORT = Number(config.PORT || config.DEV_PORT)
 const MODE = config.NODE_ENV || "development"
 
 if(MODE === "production") {
-    server.get("/", (req, res) => {
+    app.get("/", (req, res) => {
         res.sendFile(path.resolve("client", "build", "index.html"))
     })
 }
@@ -45,3 +49,5 @@ export const start = async () => {
         process.exit(1)
     }
 }
+
+export const io = new SocketIO.Server(server, {path: "/api"})

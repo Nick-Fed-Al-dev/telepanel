@@ -1,7 +1,12 @@
+import {TelegramClient} from "telegram"
+
 import {EntitySessionDto} from "./dto/entity-session.dto"
 import {SessionEntity} from "./session.entity"
-import {ApiTelegramClient} from "../../modules/ApiTelegramClient";
-import {ApiError} from "../../modules/ApiError";
+import {ApiTelegramClient} from "../../modules/ApiTelegramClient"
+import {ApiError} from "../../modules/ApiError"
+import {CreateSessionDto} from "./dto/create-session.dto"
+import {AccountEntity} from "../account/account.entity"
+import {AuthAccountDto} from "../account/dto/auth-account.dto"
 
 export class SessionService {
 
@@ -16,8 +21,7 @@ export class SessionService {
         return entitySessionDto
     }
 
-    public static async saveSession(phone : string, code : number) : Promise<EntitySessionDto> {
-        const createSessionDto = await ApiTelegramClient.getSessionData(phone, code)
+    public static async saveSession(createSessionDto : CreateSessionDto) : Promise<EntitySessionDto> {
         const sessionEntity = await SessionEntity.create(createSessionDto as unknown as SessionEntity)
         await sessionEntity.save()
         const entitySessionDto = new EntitySessionDto(sessionEntity)

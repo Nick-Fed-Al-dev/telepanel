@@ -1,7 +1,7 @@
 
-export class SendCodeAccountDto {
+export class CreateAccountDto {
 
-    phone : string
+    public phone : string
 
     constructor(object : any) {
         this.phone = object.phone

@@ -16,9 +16,15 @@ export class AccountValidator {
         ]
     }
 
-    public static validateAccountBind() {
+    public static validateParamAccountId() {
         return [
-            ...AccountValidator.validatePhoneNumber(),
+            validator.param("accountId", "request params should contain account id")
+        ]
+    }
+
+    public static validateAccountLogin() {
+        return [
+            ...AccountValidator.validateParamAccountId(),
             ...AccountValidator.validatePhoneCode()
         ]
     }

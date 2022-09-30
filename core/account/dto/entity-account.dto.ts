@@ -1,6 +1,6 @@
 import {DataAccountDto} from "./data-account.dto"
 
-export class EntityAccountDto extends DataAccountDto{
+export class EntityAccountDto extends DataAccountDto {
 
     public id : number
     public userId : number

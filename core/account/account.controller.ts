@@ -1,12 +1,9 @@
-import {RequestExtended} from "../../modules/types/RequestExtended"
-
 import * as express from "express"
-import {AccountService} from "./account.service";
-import {ApiResponse} from "../../modules/ApiResponse";
-import {SendCodeAccountDto} from "./dto/send-code-account.dto";
-import {BindAccountDto} from "./dto/bind-account.dto";
-import {SessionService} from "../session/session.service";
 
+import {AccountService} from "./account.service"
+import {ApiResponse} from "../../modules/ApiResponse"
+import {CreateAccountDto} from "./dto/create-account.dto"
+import {RequestExtended} from "../../modules/types/RequestExtended"
 
 export class AccountController {
 
@@ -25,32 +22,18 @@ export class AccountController {
         }
     }
 
-    public static async sendAccountCode(req : RequestExtended, res : express.Response, next : express.NextFunction) {
+    public static async createAccount(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
-            const sendCodeAccountDto : SendCodeAccountDto = req.body
-
-            await AccountService.sendCode(sendCodeAccountDto.phone)
-
-            const response = ApiResponse.ok("message sent")
-
-            next(response)
-
-        } catch (error : any) {
-            next(error)
-        }
-    }
-
-    public static async bindAccount(req : RequestExtended, res : express.Response, next : express.NextFunction) {
-        try {
-            const bindAccountDto : BindAccountDto = req.body
             const userId = req.user.id
+            const body = new CreateAccountDto(req.body)
 
-            const accountEntity = await AccountService.bindAccount(bindAccountDto.phone, bindAccountDto.code, userId)
+            const entityAccountDto = await AccountService.createAccount(userId, body.phone)
 
-            const response = ApiResponse.created("session created", accountEntity)
+            const response = ApiResponse.created("account created", entityAccountDto)
 
             next(response)
-        } catch (error : any) {
+
+        } catch(error : any) {
             next(error)
         }
     }

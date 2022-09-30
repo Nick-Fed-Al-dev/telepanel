@@ -1,8 +1,11 @@
 import {AccountEntity} from "./account.entity"
 import {EntityAccountDto} from "./dto/entity-account.dto"
 import {ApiTelegramClient} from "../../modules/ApiTelegramClient"
-import {SessionService} from "../session/session.service"
-import {UserEntity} from "../user/user.entity";
+import {TelegramClient} from "telegram"
+import {AuthAccountDto} from "./dto/auth-account.dto";
+import {SessionService} from "../session/session.service";
+import {CreateSessionDto} from "../session/dto/create-session.dto";
+import {BigInteger} from "big-integer";
 
 export class AccountService {
 
@@ -16,13 +19,7 @@ export class AccountService {
         return entityAccountDtoArray
     }
 
-    public static async sendCode(phone : string) {
-        await ApiTelegramClient.sendCode(phone)
-    }
-
-    public static async bindAccount(phone : string, code : number, userId : number) {
-        const entitySessionDto = await SessionService.saveSession(phone, code)
-
+    public static async createAccount(userId : number, phone : string) {
         const accountEntity = new AccountEntity()
 
         accountEntity.userId = userId
@@ -30,7 +27,42 @@ export class AccountService {
 
         await accountEntity.save()
 
-        return accountEntity
+        const entityAccountDto = new EntityAccountDto(accountEntity)
+
+        return entityAccountDto
+    }
+
+    public static async sendCode(accountId : number) {
+
+        const accountEntity = await AccountEntity.findOneBy({id: accountId})
+        const {codeHash, client} = await ApiTelegramClient.sendCode(accountEntity.phone)
+
+        return {codeHash, client, phone: accountEntity.phone}
+    }
+
+    public static async loginAccount(authAccountDto : AuthAccountDto) {
+        const accountEntity = await AccountEntity.findOneBy({phone: authAccountDto.phone})
+        const dataSessionDto = await ApiTelegramClient.extractSessionData(authAccountDto)
+
+        const createSessionDto = new CreateSessionDto({accountId: accountEntity.id, ...dataSessionDto})
+
+        await SessionService.saveSession(createSessionDto)
+
+        const telegramClient = await ApiTelegramClient.importSession(dataSessionDto.key as unknown as BigInteger, dataSessionDto.bytes)
+        const dataAccountDto = await telegramClient.getThisAccountData()
+
+        accountEntity.bio = dataAccountDto.bio
+        accountEntity.username = dataAccountDto.username
+        accountEntity.firstName = dataAccountDto.firstName
+        accountEntity.lastName = dataAccountDto.lastName
+        accountEntity.photo = dataAccountDto.photo
+        accountEntity.isActivated = true
+
+        await accountEntity.save()
+
+        const entityAccountDto = new EntityAccountDto(accountEntity)
+
+        return entityAccountDto
     }
 
 }

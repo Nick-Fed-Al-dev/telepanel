@@ -1,18 +1,18 @@
-import * as typerom from "typeorm"
+import * as typeorm from "typeorm"
 
-@typerom.Entity()
-export class SessionEntity extends typerom.BaseEntity {
+@typeorm.Entity("Sessions")
+export class SessionEntity extends typeorm.BaseEntity {
 
-    @typerom.PrimaryGeneratedColumn()
+    @typeorm.PrimaryGeneratedColumn()
     public id : number
 
-    @typerom.Column()
+    @typeorm.Column()
     public accountId : number
 
-    @typerom.Column()
+    @typeorm.Column()
     public key : number
 
-    @typerom.Column()
-    public bytes : Buffer
+    @typeorm.Column()
+    public bytes : string
 
 }

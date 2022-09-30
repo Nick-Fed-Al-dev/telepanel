@@ -1,4 +1,4 @@
-import {start} from "./core/server"
+import {start} from "./core/start"
 
 (async () => {
     await start()

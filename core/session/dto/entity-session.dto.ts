@@ -10,6 +10,6 @@ export class EntitySessionDto {
         this.id = object.id
         this.accountId = object.accountId
         this.key = object.key
-        this.bytes = object.bytes
+        this.bytes = Buffer.from(object.bytes)
     }
 }
