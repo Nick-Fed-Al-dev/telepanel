@@ -10,9 +10,6 @@ export class SessionEntity extends typeorm.BaseEntity {
     public accountId : number
 
     @typeorm.Column()
-    public key : number
-
-    @typeorm.Column()
-    public bytes : string
+    public sessionName : string
 
 }

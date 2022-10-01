@@ -2,13 +2,13 @@ import * as bcrypt from "bcrypt"
 import * as uuid from "uuid"
 
 import {PayloadUserDto} from "./dto/payload-user.dto"
-import {RefreshTokenService} from "../refreshToken/refresh-token.service"
+import {RefreshTokenService} from "../refresh-token/refresh-token.service"
 import {RegisterUserDto} from "./dto/register-user.dto"
 import {UserEntity} from "./user.entity"
 import {config} from "../../modules/config/config"
 import {ApiError} from "../../modules/ApiError"
 import {LoginUserDto} from "./dto/login-user.dto"
-import {RefreshTokenEntity} from "../refreshToken/refresh-token.entity"
+import {RefreshTokenEntity} from "../refresh-token/refresh-token.entity"
 import {AuthorizedCredentialUserDto} from "./dto/authorized-credential-user.dto"
 import {Mailer} from "../../modules/mailer/Mailer"
 import {TariffService} from "../tariff/tariff.service";
@@ -42,6 +42,10 @@ export class UserService {
         await entityUserDto.save()
 
         await ChargeService.createCharge(entityUserDto.id)
+
+        const authorizedCredentialUserDto = await UserService.createTokensFromUser(entityUserDto)
+
+        return authorizedCredentialUserDto
     }
 
     public static async register(registerUserDto : RegisterUserDto) : Promise<AuthorizedCredentialUserDto> {

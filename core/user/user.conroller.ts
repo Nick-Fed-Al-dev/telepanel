@@ -28,10 +28,13 @@ export class UserController {
         try {
             const activationCode = req.params.code
 
-            await UserService.activate(activationCode)
+            const authorizedCredentialUserDto = await UserService.activate(activationCode)
 
-            // TODO: Реализовать отправку html файла с ссылкой на клиент
-            res.redirect(HttpStatus.OK, config.APP_URL)
+            const authorizedUserDto = new AuthorizedUserDto(authorizedCredentialUserDto)
+
+            const response = ApiResponse.created("user activated", authorizedUserDto)
+
+            next(response)
 
         } catch (error : any) {
             next(error)

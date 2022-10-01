@@ -1,10 +1,8 @@
 
 export class DataSessionDto {
-    public key : BigInteger
-    public bytes : Buffer
+    public sessionName : string
 
     constructor(object : any) {
-        this.key = object.key
-        this.bytes = object.bytes
+        this.sessionName = object.sessionName
     }
 }

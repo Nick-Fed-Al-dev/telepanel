@@ -14,7 +14,7 @@ export const accountMiddleware = () => {
 
             const entitySessionDto = await SessionService.getSession(body.accountId)
 
-            const telegramClient = await ApiTelegramClient.importSession(entitySessionDto.key as unknown as BigInteger, entitySessionDto.bytes)
+            const telegramClient = await ApiTelegramClient.login(entitySessionDto.sessionName)
 
             req.telegramClient = telegramClient
 

@@ -1,6 +1,6 @@
 import * as express from "express"
 
-import {RefreshTokenService} from "../../core/refreshToken/refresh-token.service"
+import {RefreshTokenService} from "../../core/refresh-token/refresh-token.service"
 import {ApiError} from "../ApiError"
 import {RequestExtended} from "../types/RequestExtended"
 
@@ -15,6 +15,10 @@ export const authMiddleware = () : any => {
 
             if(!accessToken || !payloadUserDto) {
                 ApiError.unauthorized()
+            }
+
+            if(!payloadUserDto.isActivated) {
+                ApiError.noAccess("account is not activated")
             }
 
             req.user = payloadUserDto

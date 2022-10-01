@@ -15,8 +15,6 @@ import {validationMiddleware} from "../modules/middlewares/validation.middleware
 
 const app = express()
 
-const server = http.createServer(app)
-
 app.use(cors(corsConfig()))
 app.use(express.json())
 app.use(cookieParser())
@@ -39,7 +37,7 @@ export const start = async () => {
         await database.initialize()
         logger.info("database was initialized")
 
-        server.listen(PORT, () => {
+        app.listen(PORT, () => {
             logger.info(`server has been started...`)
             logger.info(`mode: ${MODE}`)
             logger.info(`port: ${PORT}`)
@@ -49,5 +47,3 @@ export const start = async () => {
         process.exit(1)
     }
 }
-
-export const io = new SocketIO.Server(server, {path: "/api"})

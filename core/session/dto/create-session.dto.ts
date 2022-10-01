@@ -1,11 +1,10 @@
 
 export class CreateSessionDto {
     public accountId : number
-    public key : number
-    public bytes : string
+    public sessionName : string
 
     constructor(object : any) {
-        this.key = object.key
-        this.bytes = JSON.stringify(object.bytes)
+        this.accountId = object.accountId
+        this.sessionName = object.sessionName
     }
 }

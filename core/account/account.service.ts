@@ -1,11 +1,9 @@
 import {AccountEntity} from "./account.entity"
 import {EntityAccountDto} from "./dto/entity-account.dto"
 import {ApiTelegramClient} from "../../modules/ApiTelegramClient"
-import {TelegramClient} from "telegram"
-import {AuthAccountDto} from "./dto/auth-account.dto";
-import {SessionService} from "../session/session.service";
-import {CreateSessionDto} from "../session/dto/create-session.dto";
-import {BigInteger} from "big-integer";
+import {AuthAccountDto} from "./dto/auth-account.dto"
+import {SessionService} from "../session/session.service"
+import {CreateSessionDto} from "../session/dto/create-session.dto"
 
 export class AccountService {
 
@@ -42,13 +40,13 @@ export class AccountService {
 
     public static async loginAccount(authAccountDto : AuthAccountDto) {
         const accountEntity = await AccountEntity.findOneBy({phone: authAccountDto.phone})
-        const dataSessionDto = await ApiTelegramClient.extractSessionData(authAccountDto)
+        const sessionName = await ApiTelegramClient.getSessionName(authAccountDto)
 
-        const createSessionDto = new CreateSessionDto({accountId: accountEntity.id, ...dataSessionDto})
+        const createSessionDto = new CreateSessionDto({accountId: accountEntity.id, sessionName})
 
         await SessionService.saveSession(createSessionDto)
 
-        const telegramClient = await ApiTelegramClient.importSession(dataSessionDto.key as unknown as BigInteger, dataSessionDto.bytes)
+        const telegramClient = await ApiTelegramClient.login(sessionName)
         const dataAccountDto = await telegramClient.getThisAccountData()
 
         accountEntity.bio = dataAccountDto.bio

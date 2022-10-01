@@ -15,4 +15,8 @@ accountRouter.get("/", AccountController.getAccounts)
 
 accountRouter.post("/create", AccountValidator.validatePhoneNumber(), AccountController.createAccount)
 
+accountRouter.post("/send-code/:accountId", AccountValidator.validateParamAccountId(), AccountController.sendCode)
+
+accountRouter.post("/login/:accountId", AccountValidator.validateAccountLogin(), AccountController.loginAccount)
+
 accountRouter.get("/test", accountMiddleware(), AccountController.test)

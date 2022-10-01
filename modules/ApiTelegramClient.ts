@@ -1,8 +1,6 @@
 import * as telegram from "telegram"
-import {BigInteger} from "big-integer"
 
 import {config} from "./config/config"
-import {DataSessionDto} from "../core/session/dto/data-session.dto"
 import {AuthAccountDto} from "../core/account/dto/auth-account.dto"
 import {DataAccountDto} from "../core/account/dto/data-account.dto"
 
@@ -14,9 +12,12 @@ export class ApiTelegramClient {
         this.telegramClient = client
     }
 
-    private static async connectClient() {
-        const session = new telegram.sessions.StringSession("")
-        const client = new telegram.TelegramClient(session, Number(config.TELEGRAM_API_ID), config.TELEGRAM_API_HASH, {})
+    private static async connectClient(sessionName : string) {
+        const session = new telegram.sessions.StringSession(sessionName)
+
+        const client = new telegram.TelegramClient(session, Number(config.TELEGRAM_API_ID), config.TELEGRAM_API_HASH, {
+            connectionRetries: 5
+        })
 
         await client.connect()
 
@@ -24,7 +25,7 @@ export class ApiTelegramClient {
     }
 
     public static async sendCode(phone : string) {
-        const client = await ApiTelegramClient.connectClient()
+        const client = await ApiTelegramClient.connectClient("")
 
         const {phoneCodeHash} = await client.invoke(new telegram.Api.auth.SendCode({
             phoneNumber: phone,
@@ -40,7 +41,7 @@ export class ApiTelegramClient {
         }
     }
 
-    public static async extractSessionData(authAccountDto : AuthAccountDto) {
+    public static async getSessionName(authAccountDto : AuthAccountDto) {
 
         await authAccountDto.client.invoke(new telegram.Api.auth.SignIn({
             phoneNumber: authAccountDto.phone,
@@ -48,19 +49,13 @@ export class ApiTelegramClient {
             phoneCodeHash: authAccountDto.codeHash
         }))
 
-        const auth = await authAccountDto.client.invoke(new telegram.Api.auth.ExportAuthorization({}))
-        const dataSessionDto = new DataSessionDto(auth)
+        const sessionName = String(authAccountDto.client.session.save())
 
-        return dataSessionDto
+        return sessionName
     }
 
-    public static async importSession(key : BigInteger, bytes: Buffer) {
-        const client = await ApiTelegramClient.connectClient()
-
-        await client.invoke(new telegram.Api.auth.ImportAuthorization({
-            id: key,
-            bytes
-        }))
+    public static async login(sessionName : string) {
+        const client = await ApiTelegramClient.connectClient(sessionName)
 
         const apiTelegramClient = new ApiTelegramClient(client)
 
@@ -76,7 +71,7 @@ export class ApiTelegramClient {
     }
 
     public async test() {
-        await this.telegramClient.sendMessage("nickfedev", {message: "Привет!!!"})
+        await this.telegramClient.sendMessage("Svetlana_f_ko", {message: "Привет!!!"})
     }
 
 }

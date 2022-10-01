@@ -11,7 +11,7 @@ export class AccountValidator {
 
     public static validatePhoneCode() {
         return [
-            validator.check("code", "request should contain sms code")
+            validator.check("code", "request should contain code")
                 .isInt()
         ]
     }
@@ -19,6 +19,7 @@ export class AccountValidator {
     public static validateParamAccountId() {
         return [
             validator.param("accountId", "request params should contain account id")
+                .isInt()
         ]
     }
 
