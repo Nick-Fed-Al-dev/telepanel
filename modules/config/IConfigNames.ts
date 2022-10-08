@@ -2,8 +2,9 @@
 export interface IConfigNames {
     PORT?: string
     DEV_PORT: string
+    APP_HOST: string
+    APP_PROTOCOL: string
     NODE_ENV?: string
-    APP_URL: string
 
     DB_HOST: string
     DB_PORT: string

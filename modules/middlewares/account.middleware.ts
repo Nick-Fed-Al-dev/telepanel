@@ -1,18 +1,22 @@
 import * as express from "express"
-import {BigInteger} from "big-integer"
 
 import {RequestExtended} from "../types/RequestExtended"
 import {ApiTelegramClient} from "../ApiTelegramClient"
 import {SessionService} from "../../core/session/session.service"
+import {ApiError} from "../ApiError"
 
 export const accountMiddleware = () => {
 
     return async (req : RequestExtended, res : express.Response, next : express.NextFunction) => {
         try {
 
-            const body : {accountId : number} = req.body
+            const {accountId}  = req.body
 
-            const entitySessionDto = await SessionService.getSession(body.accountId)
+            if(!accountId) {
+                ApiError.badRequest("request body should provide account id")
+            }
+
+            const entitySessionDto = await SessionService.getSession(accountId)
 
             const telegramClient = await ApiTelegramClient.login(entitySessionDto.sessionName)
 

@@ -7,7 +7,8 @@ import {RequestExtended} from "../../modules/types/RequestExtended"
 import {AuthAccountDto} from "./dto/auth-account.dto"
 import {serverStorage} from "../../modules/storage/server-storage"
 import {LoginAccountDto} from "./dto/login-account.dto"
-import {accountKeyCreator} from "../../modules/storage/account-key-creator";
+import {accountKeyCreator} from "../../modules/storage/account-key-creator"
+import {ApiError} from "../../modules/ApiError"
 
 export class AccountController {
 
@@ -28,6 +29,8 @@ export class AccountController {
 
     public static async createAccount(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
+
             const userId = req.user.id
             const body = new CreateAccountDto(req.body)
 
@@ -44,6 +47,8 @@ export class AccountController {
 
     public static async sendCode(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
+
             const accountId = Number(req.params.accountId)
 
             const {client, phone, codeHash} = await AccountService.sendCode(accountId)
@@ -63,6 +68,7 @@ export class AccountController {
 
     public static async loginAccount(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
 
             const accountId = Number(req.params.accountId)
             const {code} = new LoginAccountDto(req.body)
@@ -79,16 +85,6 @@ export class AccountController {
 
             next(response)
 
-        } catch (error : any) {
-            next(error)
-        }
-    }
-
-    public static async test(req : RequestExtended, res : express.Response, next : express.NextFunction) {
-        try {
-            await req.telegramClient.test()
-            const response = ApiResponse.ok("tested")
-            next(response)
         } catch (error : any) {
             next(error)
         }

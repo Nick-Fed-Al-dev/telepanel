@@ -8,6 +8,7 @@ import {CreateSessionDto} from "../session/dto/create-session.dto"
 export class AccountService {
 
     public static async getAccounts(userId : number) : Promise<EntityAccountDto[]> {
+
         const accountEntityDtoArray = await AccountEntity.findBy({userId})
 
         const entityAccountDtoArray = accountEntityDtoArray.map((accountEntity) => {
@@ -18,6 +19,7 @@ export class AccountService {
     }
 
     public static async createAccount(userId : number, phone : string) {
+
         const accountEntity = new AccountEntity()
 
         accountEntity.userId = userId
@@ -39,6 +41,7 @@ export class AccountService {
     }
 
     public static async loginAccount(authAccountDto : AuthAccountDto) {
+
         const accountEntity = await AccountEntity.findOneBy({phone: authAccountDto.phone})
         const sessionName = await ApiTelegramClient.getSessionName(authAccountDto)
 
@@ -47,7 +50,7 @@ export class AccountService {
         await SessionService.saveSession(createSessionDto)
 
         const telegramClient = await ApiTelegramClient.login(sessionName)
-        const dataAccountDto = await telegramClient.getThisAccountData()
+        const dataAccountDto = await telegramClient.getSelfData()
 
         accountEntity.bio = dataAccountDto.bio
         accountEntity.username = dataAccountDto.username

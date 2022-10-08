@@ -3,6 +3,8 @@ import * as express from "express"
 import {TariffService} from "./tariff.service"
 import {ApiResponse} from "../../modules/ApiResponse"
 import {RequestExtended} from "../../modules/types/RequestExtended"
+import {ApiError} from "../../modules/ApiError"
+import {UpdateTariffDto} from "./dto/update-tariff.dto"
 
 export class TariffController {
 
@@ -24,9 +26,10 @@ export class TariffController {
 
     public static async updateTariff(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
 
             const userId = req.user.id
-            const updateTariffDto = req.body
+            const updateTariffDto = new UpdateTariffDto(req.body)
 
             const entityTariffDto = await TariffService.updateTariff(userId, updateTariffDto)
 

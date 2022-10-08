@@ -48,6 +48,12 @@ export class ChargeService {
 
         const dayDifference = Time.datesDifferenceInDays(lastUpdate, now)
 
+        if(!dayDifference) {
+            const entityChargeDto = new EntityChargeDto(chargeEntity)
+
+            return entityChargeDto
+        }
+
         const expiresIn = chargeEntity.expiresIn - dayDifference
 
         chargeEntity.expiresIn = (expiresIn > 0) ? expiresIn : 0

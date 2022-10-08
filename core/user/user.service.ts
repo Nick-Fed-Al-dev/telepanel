@@ -11,9 +11,10 @@ import {LoginUserDto} from "./dto/login-user.dto"
 import {RefreshTokenEntity} from "../refresh-token/refresh-token.entity"
 import {AuthorizedCredentialUserDto} from "./dto/authorized-credential-user.dto"
 import {Mailer} from "../../modules/mailer/Mailer"
-import {TariffService} from "../tariff/tariff.service";
-import {CreateTariffDto} from "../tariff/dto/create-tariff.dto";
-import {ChargeService} from "../charge/charge.service";
+import {TariffService} from "../tariff/tariff.service"
+import {CreateTariffDto} from "../tariff/dto/create-tariff.dto"
+import {ChargeService} from "../charge/charge.service"
+import {APP_URL} from "../start"
 
 export class UserService {
 
@@ -70,7 +71,7 @@ export class UserService {
         const createTariffDto = new CreateTariffDto({userId: entityUserDto.id, name: config.FREE_TRIAL_TARIFF_NAME, period: config.FREE_TRIAL_DURATION_DAYS})
         await TariffService.createTariff(createTariffDto)
 
-        const activationLink = `${config.APP_URL}/api/user/activate/${entityUserDto.activationCode}`
+        const activationLink = `${APP_URL}/api/user/activate/${entityUserDto.activationCode}`
         const mailer = new Mailer()
         await mailer.sendActivationMail(entityUserDto.email, activationLink)
 

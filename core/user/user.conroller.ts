@@ -7,7 +7,7 @@ import {UserService} from "./user.service"
 import {AuthorizedUserDto} from "./dto/authorized-user.dto"
 import {ApiResponse} from "../../modules/ApiResponse"
 import {LoginUserDto} from "./dto/login-user.dto"
-import {HttpStatus} from "../../modules/HttpStatus"
+import {ApiError} from "../../modules/ApiError"
 
 export class UserController {
 
@@ -26,6 +26,8 @@ export class UserController {
 
     public static async activate(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
+
             const activationCode = req.params.code
 
             const authorizedCredentialUserDto = await UserService.activate(activationCode)
@@ -43,6 +45,8 @@ export class UserController {
 
     public static async register(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
+
             const registerUserDto = new RegisterUserDto(req.body)
 
             const authorizedCredentialUserDto = await UserService.register(registerUserDto)
@@ -62,6 +66,8 @@ export class UserController {
 
     public static async login(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
+
             const loginUserDto : LoginUserDto = req.body
 
             const authorizedCredentialUserDto = await UserService.login(loginUserDto)
@@ -81,6 +87,7 @@ export class UserController {
 
     public static async refresh(req : express.Request, res : express.Response, next : express.NextFunction) {
         try {
+            ApiError.validateRequest(req)
 
             const {refreshToken} = req.cookies
 
