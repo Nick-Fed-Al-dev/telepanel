@@ -9,6 +9,7 @@ export class EntityClientDto {
     public bio : string
     public from : string
     public photo : any
+    public updatedAt : Date
 
     constructor(object : any) {
         this.id = object.id
@@ -18,6 +19,7 @@ export class EntityClientDto {
         this.bio = object.bio
         this.from = object.from
         this.photo = JSON.parse(object.photo)
+        this.updatedAt = object.updatedAt
     }
 
 }
