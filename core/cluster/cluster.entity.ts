@@ -1,7 +1,7 @@
 import * as typeorm from "typeorm"
 
-@typeorm.Entity("Refresh_Tokens")
-export class RefreshTokenEntity extends typeorm.BaseEntity{
+@typeorm.Entity("Clusters")
+export class ClusterEntity extends typeorm.BaseEntity {
 
     @typeorm.PrimaryGeneratedColumn()
     public id : number
@@ -10,16 +10,12 @@ export class RefreshTokenEntity extends typeorm.BaseEntity{
     public userId : number
 
     @typeorm.Column()
-    public refreshToken : string
+    public title : string
 
     @typeorm.CreateDateColumn({type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)"})
     public createdAt : Date
 
-    @typeorm.CreateDateColumn({
-        type: "timestamp",
-        default: () => "CURRENT_TIMESTAMP(6)",
-        onUpdate: "CURRENT_TIMESTAMP(6)"
-    })
+    @typeorm.CreateDateColumn({type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)"})
     public updatedAt : Date
 
 }

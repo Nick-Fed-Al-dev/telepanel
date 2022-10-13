@@ -43,7 +43,7 @@ export class ChargeService {
         const tariffEntity = await TariffEntity.findOneBy({userId})
         const chargeEntity = await ChargeEntity.findOneBy({tariffId: tariffEntity.id})
 
-        const lastUpdate = new Date(chargeEntity.expiresInLastUpdate)
+        const lastUpdate = new Date(chargeEntity.updatedAt)
         const now = new Date()
 
         const dayDifference = Time.datesDifferenceInDays(lastUpdate, now)
@@ -62,7 +62,7 @@ export class ChargeService {
             chargeEntity.expiresIn = 0
         }
 
-        chargeEntity.expiresInLastUpdate = now
+        chargeEntity.updatedAt = now
 
         await chargeEntity.save()
 

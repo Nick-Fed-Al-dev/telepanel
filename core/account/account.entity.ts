@@ -9,9 +9,6 @@ export class AccountEntity extends typeorm.BaseEntity {
     @typeorm.Column()
     public userId : number
 
-    @typeorm.Column({default: false})
-    public isActivated : boolean
-
     @typeorm.Column()
     public phone : string
 

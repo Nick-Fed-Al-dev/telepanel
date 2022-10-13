@@ -57,7 +57,6 @@ export class AccountService {
         accountEntity.firstName = dataAccountDto.firstName
         accountEntity.lastName = dataAccountDto.lastName
         accountEntity.photo = dataAccountDto.photo
-        accountEntity.isActivated = true
 
         await accountEntity.save()
 

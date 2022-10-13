@@ -3,7 +3,6 @@ import * as telegram from "telegram"
 import {config} from "./config/config"
 import {AuthAccountDto} from "../core/account/dto/auth-account.dto"
 import {DataAccountDto} from "../core/account/dto/data-account.dto"
-import {DataClientDto} from "../core/client/dto/data-client.dto";
 
 export class ApiTelegramClient {
 
@@ -73,34 +72,34 @@ export class ApiTelegramClient {
         return dataAccountDto
     }
 
-    public async parseAccounts(usernames : string[]) : Promise<DataClientDto[]> {
+    // public async parseAccounts(usernames : string[]) : Promise<DataClientDto[]> {
+    //
+    //     const dataClientDtoArray = []
+    //     console.log(usernames)
+    //     for (const username of usernames) {
+    //         const fullAccount : telegram.Api.users.UserFull = await this.telegramClient.invoke(new telegram.Api.users.GetFullUser({id: username}))
+    //         const dataClientDto = new DataClientDto({
+    //             bio: fullAccount.fullUser.about,
+    //             photo: fullAccount.fullUser.profilePhoto,
+    //             username
+    //         })
+    //         dataClientDtoArray.push(dataClientDto)
+    //     }
+    //
+    //     return dataClientDtoArray
+    // }
 
-        const dataClientDtoArray = []
-        console.log(usernames)
-        for (const username of usernames) {
-            const fullAccount : telegram.Api.users.UserFull = await this.telegramClient.invoke(new telegram.Api.users.GetFullUser({id: username}))
-            const dataClientDto = new DataClientDto({
-                bio: fullAccount.fullUser.about,
-                photo: fullAccount.fullUser.profilePhoto,
-                username
-            })
-            dataClientDtoArray.push(dataClientDto)
-        }
-
-        return dataClientDtoArray
-    }
-
-    public async parseAccount(username : string) : Promise<DataClientDto> {
-        const fullAccount : telegram.Api.users.UserFull = await this.telegramClient.invoke(new telegram.Api.users.GetFullUser({id: username}))
-
-        const dataClientDto = new DataClientDto({
-            bio: fullAccount.fullUser.about,
-            photo: fullAccount.fullUser.profilePhoto,
-            username
-        })
-
-        return dataClientDto
-    }
+    // public async parseAccount(username : string) : Promise<DataClientDto> {
+    //     const fullAccount : telegram.Api.users.UserFull = await this.telegramClient.invoke(new telegram.Api.users.GetFullUser({id: username}))
+    //
+    //     const dataClientDto = new DataClientDto({
+    //         bio: fullAccount.fullUser.about,
+    //         photo: fullAccount.fullUser.profilePhoto,
+    //         username
+    //     })
+    //
+    //     return dataClientDto
+    // }
 
     public async parseUsernames(groupTitles : string[]) : Promise<string[]> {
         return

@@ -5,7 +5,7 @@ import {tariffRouter} from "./tariff/tariff.router"
 import {chargeRouter} from "./charge/charge.router"
 import {accountRouter} from "./account/account.router"
 import {testRouter} from "./test/test.router"
-import {clientRouter} from "./client/client.router"
+import {clusterRouter} from "./cluster/cluster.router"
 
 export const router = express.Router()
 
@@ -17,6 +17,6 @@ router.use("/charge", chargeRouter)
 
 router.use("/account", accountRouter)
 
-router.use("/client", clientRouter)
+router.use("/cluster", clusterRouter)
 
 router.use("/test", testRouter)
