@@ -5,7 +5,6 @@ export class DataAccountDto {
     public username : string
     public firstName : string
     public lastName : string
-    public photo : string
     public bio : string
 
     constructor(object : any) {
@@ -13,7 +12,6 @@ export class DataAccountDto {
         this.username = object.username
         this.firstName = object.firstName
         this.lastName = object.lastName
-        this.photo = object.photo
         this.bio = object.bio
     }
 }

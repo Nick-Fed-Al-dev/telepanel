@@ -8,6 +8,7 @@ import {ChargeEntity} from "../core/charge/charge.entity"
 import {AccountEntity} from "../core/account/account.entity"
 import {SessionEntity} from "../core/session/session.entity"
 import {ClusterEntity} from "../core/cluster/cluster.entity"
+import {ClientEntity} from "../core/client/client.entity"
 
 const entities = [
     UserEntity,
@@ -16,7 +17,8 @@ const entities = [
     ChargeEntity,
     AccountEntity,
     SessionEntity,
-    ClusterEntity
+    ClusterEntity,
+    ClientEntity
 ]
 
 export const database = new DataSource(postgresqlConfig(entities))

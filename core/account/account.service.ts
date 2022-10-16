@@ -4,6 +4,7 @@ import {ApiTelegramClient} from "../../modules/ApiTelegramClient"
 import {AuthAccountDto} from "./dto/auth-account.dto"
 import {SessionService} from "../session/session.service"
 import {CreateSessionDto} from "../session/dto/create-session.dto"
+import {SessionEntity} from "../session/session.entity"
 
 export class AccountService {
 
@@ -52,13 +53,24 @@ export class AccountService {
         const telegramClient = await ApiTelegramClient.login(sessionName)
         const dataAccountDto = await telegramClient.getSelfData()
 
-        accountEntity.bio = dataAccountDto.bio
-        accountEntity.username = dataAccountDto.username
-        accountEntity.firstName = dataAccountDto.firstName
-        accountEntity.lastName = dataAccountDto.lastName
-        accountEntity.photo = dataAccountDto.photo
+        await AccountEntity.update({id: accountEntity.id}, dataAccountDto)
 
-        await accountEntity.save()
+        const updatedAccountEntity = await AccountEntity.findOneBy({id: accountEntity.id})
+
+        const entityAccountDto = new EntityAccountDto(updatedAccountEntity)
+
+        return entityAccountDto
+    }
+
+    public static async refreshAccount(accountId : number) {
+        const sessionEntity = await SessionEntity.findOneBy({accountId})
+
+        const telegramClient = await ApiTelegramClient.login(sessionEntity.sessionName)
+        const dataAccountDto = await telegramClient.getSelfData()
+
+        await AccountEntity.update({id: accountId}, dataAccountDto)
+
+        const accountEntity = await AccountEntity.findOneBy({id: accountId})
 
         const entityAccountDto = new EntityAccountDto(accountEntity)
 

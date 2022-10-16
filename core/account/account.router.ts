@@ -4,7 +4,6 @@ import {AccountValidator} from "./account.validator"
 import {AccountController} from "./account.controller"
 import {authMiddleware} from "../../modules/middlewares/auth.middleware"
 import {chargeMiddleware} from "../../modules/middlewares/charge.middleware"
-import {accountMiddleware} from "../../modules/middlewares/account.middleware"
 
 export const accountRouter = express.Router()
 
@@ -18,3 +17,5 @@ accountRouter.post("/create", AccountValidator.validatePhoneNumber(), AccountCon
 accountRouter.post("/send-code/:accountId", AccountValidator.validateParamAccountId(), AccountController.sendCode)
 
 accountRouter.post("/login/:accountId", AccountValidator.validateAccountLogin(), AccountController.loginAccount)
+
+accountRouter.patch("/refresh/:accountId", AccountValidator.validateParamAccountId(), AccountController.refreshAccount)

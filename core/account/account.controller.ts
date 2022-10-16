@@ -90,4 +90,21 @@ export class AccountController {
         }
     }
 
+    public static async refreshAccount(req : RequestExtended, res : express.Response, next : express.NextFunction) {
+        try {
+            ApiError.validateRequest(req)
+
+            const accountId = Number(req.params.accountId)
+
+            const entityAccountDto = await AccountService.refreshAccount(accountId)
+
+            const response = ApiResponse.ok("account refreshed", entityAccountDto)
+
+            next(response)
+
+        } catch (error : any) {
+            next(error)
+        }
+    }
+
 }

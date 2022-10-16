@@ -22,9 +22,6 @@ export class AccountEntity extends typeorm.BaseEntity {
     public lastName : string
 
     @typeorm.Column({nullable: true})
-    public photo : string
-
-    @typeorm.Column({nullable: true})
     public bio : string
 
     @typeorm.CreateDateColumn({type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)"})

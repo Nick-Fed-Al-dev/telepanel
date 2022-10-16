@@ -13,7 +13,7 @@ export const accountMiddleware = () => {
             const {accountId}  = req.body
 
             if(!accountId) {
-                ApiError.badRequest("request body should provide account id")
+                next()
             }
 
             const entitySessionDto = await SessionService.getSession(accountId)
