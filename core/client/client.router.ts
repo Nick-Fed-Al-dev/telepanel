@@ -12,12 +12,12 @@ clientRouter.use(authMiddleware())
 clientRouter.use(chargeMiddleware())
 clientRouter.use(accountMiddleware())
 
-clientRouter.get("/all/:clusterId", ClientValidator.validateClusterIdParam(), ClientController.findClients)
-
 clientRouter.get("/:clientId", ClientValidator.validateClientIdParam(), ClientController.findClient)
 
-clientRouter.patch("/refresh-all/:clusterId", ClientValidator.validateAccountId(), ClientController.refreshClients)
+clientRouter.get("/all/:clusterId", ClientValidator.validateClusterIdParam(), ClientController.findClients)
 
 clientRouter.patch("/refresh/:clientId", ClientValidator.validateClientRefresh(), ClientController.refreshClient)
+
+clientRouter.patch("/refresh/all/:clusterId", ClientValidator.validateClientsRefresh(), ClientController.refreshClients)
 
 clientRouter.patch("/update/:clientId", ClientValidator.validateClientIdParam(), ClientController.updateClient)

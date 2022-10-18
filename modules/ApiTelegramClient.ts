@@ -4,7 +4,7 @@ import {config} from "./config/config"
 import {AuthAccountDto} from "../core/account/dto/auth-account.dto"
 import {DataAccountDto} from "../core/account/dto/data-account.dto"
 import {DataClientDto} from "../core/client/dto/data-client.dto"
-import {BigInteger} from "big-integer";
+import {DataGroupDto} from "../core/group/dto/data-group.dto";
 
 export class ApiTelegramClient {
 
@@ -74,22 +74,6 @@ export class ApiTelegramClient {
         return dataAccountDto
     }
 
-    public async parseAccounts(usernames : string[]) : Promise<DataClientDto[]> {
-
-        const dataClientDtoArray = []
-
-        for (const username of usernames) {
-            const fullAccount : telegram.Api.users.UserFull = await this.telegramClient.invoke(new telegram.Api.users.GetFullUser({id: username}))
-            const dataClientDto = new DataClientDto({
-                bio: fullAccount.fullUser.about,
-                username
-            })
-            dataClientDtoArray.push(dataClientDto)
-        }
-
-        return dataClientDtoArray
-    }
-
     public async parseAccount(username : string) : Promise<DataClientDto> {
         const fullAccount : telegram.Api.users.UserFull = await this.telegramClient.invoke(new telegram.Api.users.GetFullUser({id: username}))
 
@@ -99,6 +83,53 @@ export class ApiTelegramClient {
         })
 
         return dataClientDto
+    }
+
+    public async searchGroups(title : string) {
+
+        const found = (await this.telegramClient.invoke(new telegram.Api.contacts.Search({
+            q: title,
+            limit: 10
+        }))).results as telegram.Api.PeerChat[]
+
+        const groupIdArray = found.map((group) => String(group.chatId))
+
+        return groupIdArray
+    }
+
+    public async parseGroup(telegramId : string) {
+
+        const fullGroup = await this.telegramClient.invoke(new telegram.Api.channels.GetFullChannel({
+            channel: telegramId
+        })) as unknown as telegram.Api.ChatFull
+
+        const group = (await this.telegramClient.invoke(new telegram.Api.channels.GetChannels({
+            id: [telegramId]
+        }))).chats[0] as telegram.Api.Chat
+
+        const dataGroupDto = new DataGroupDto({
+            telegramId,
+            description: fullGroup.about,
+            title: group.title,
+            population: group.participantsCount
+        })
+
+        return dataGroupDto
+    }
+
+    public async parseGroupMembers(telegramId : string, offset : number) {
+
+        const members = (await this.telegramClient.invoke(new telegram.Api.channels.GetParticipants({
+            limit: 100,
+            channel: telegramId,
+            offset
+        }))) as telegram.Api.channels.ChannelParticipants
+
+        const memberIdArray = members.participants.map((participant) => {
+            return String((participant as unknown as telegram.Api.ChannelParticipant).userId)
+        })
+
+        return memberIdArray
     }
 
     public async checkGroupBelonging(groupId : string, username : string) {

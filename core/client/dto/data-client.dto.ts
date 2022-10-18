@@ -3,7 +3,7 @@ export class DataClientDto {
 
     public username : string
     public bio : string
-    public groups : string[]
+    public groups : number[]
 
     constructor(object : any) {
         this.username = object.username

@@ -5,7 +5,7 @@ export class EntityClientDto {
     public clusterId : number
     public username : string
     public bio : string
-    public groups : string[]
+    public groups : number[]
     public isRefused : boolean
     public createdAt : Date
     public updatedAt : Date

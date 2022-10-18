@@ -1,4 +1,5 @@
 import {BaseEntity, DataSourceOptions} from "typeorm"
+
 import {config} from "./config"
 
 export const postgresqlConfig = (entities : typeof BaseEntity[]) : DataSourceOptions => ({

@@ -33,4 +33,11 @@ export class ClientValidator {
         ]
     }
 
+    public static validateClientsRefresh() {
+        return [
+            ...ClientValidator.validateClusterIdParam(),
+            ...ClientValidator.validateAccountId()
+        ]
+    }
+
 }

@@ -45,6 +45,14 @@ export class ClientController {
         try {
             ApiError.validateRequest(req)
 
+            const clusterId = Number(req.params.clusterId)
+
+            const entityClientDtoArray = ClientService.refreshClients(req.telegramClient, clusterId)
+
+            const response = ApiResponse.ok("clients refreshed", entityClientDtoArray)
+
+            next(response)
+
         } catch (error : any) {
             next(error)
         }
@@ -53,6 +61,14 @@ export class ClientController {
     public static async refreshClient(req : RequestExtended, res : express.Response, next : express.NextFunction) {
         try {
             ApiError.validateRequest(req)
+
+            const clientId = Number(req.params.clientId)
+
+            const entityClientDto = ClientService.refreshClient(req.telegramClient, clientId)
+
+            const response = ApiResponse.ok("client refreshed", entityClientDto)
+
+            next(response)
 
         } catch (error : any) {
             next(error)

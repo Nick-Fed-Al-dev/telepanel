@@ -16,7 +16,7 @@ export class ClientEntity extends typeorm.BaseEntity {
     public bio : string
 
     @typeorm.Column({type: "array"})
-    public groups : string[]
+    public groups : number[]
 
     @typeorm.Column({default: false})
     public isRefused : boolean

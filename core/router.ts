@@ -7,6 +7,7 @@ import {accountRouter} from "./account/account.router"
 import {testRouter} from "./test/test.router"
 import {clusterRouter} from "./cluster/cluster.router"
 import {clientRouter} from "./client/client.router"
+import {groupRouter} from "./group/group.router"
 
 export const router = express.Router()
 
@@ -21,5 +22,7 @@ router.use("/account", accountRouter)
 router.use("/cluster", clusterRouter)
 
 router.use("/client", clientRouter)
+
+router.use("/group", groupRouter)
 
 router.use("/test", testRouter)
