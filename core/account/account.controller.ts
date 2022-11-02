@@ -16,13 +16,28 @@ export class AccountController {
         try {
             const userId = req.user.id
 
-            const entityAccountDtoArray = await AccountService.getAccounts(userId)
+            const fullAccountDtoArray = await AccountService.getAccounts(userId)
 
-            const response = ApiResponse.ok("accounts received", entityAccountDtoArray)
+            const response = ApiResponse.ok("accounts received", fullAccountDtoArray)
 
             next(response)
 
         } catch (error : any) {
+            next(error)
+        }
+    }
+
+    public static async getAccount(req : RequestExtended, res : express.Response, next : express.NextFunction) {
+        try {
+            const accountId = Number(req.params.accountId)
+
+            const fullAccountDto = await AccountService.getAccount(accountId)
+
+            const response = ApiResponse.ok("account received")
+
+            next(response)
+
+        } catch(error : any) {
             next(error)
         }
     }
@@ -34,9 +49,9 @@ export class AccountController {
             const userId = req.user.id
             const body = new CreateAccountDto(req.body)
 
-            const entityAccountDto = await AccountService.createAccount(userId, body.phone)
+            const fullAccountDto = await AccountService.createAccount(userId, body.phone)
 
-            const response = ApiResponse.created("account created", entityAccountDto)
+            const response = ApiResponse.created("account created", fullAccountDto)
 
             next(response)
 
@@ -77,11 +92,11 @@ export class AccountController {
 
             authAccountDto.code = code
 
-            const entityAccountDto = await AccountService.loginAccount(authAccountDto)
+            const fullAccountDto = await AccountService.loginAccount(authAccountDto)
 
             serverStorage.delete(accountKeyCreator(accountId))
 
-            const response = ApiResponse.created("account authorized", entityAccountDto)
+            const response = ApiResponse.created("account authorized", fullAccountDto)
 
             next(response)
 
@@ -96,9 +111,9 @@ export class AccountController {
 
             const accountId = Number(req.params.accountId)
 
-            const entityAccountDto = await AccountService.refreshAccount(accountId)
+            const fullAccountDto = await AccountService.refreshAccount(accountId)
 
-            const response = ApiResponse.ok("account refreshed", entityAccountDto)
+            const response = ApiResponse.ok("account refreshed", fullAccountDto)
 
             next(response)
 

@@ -4,13 +4,17 @@ import {ApiError} from "../ApiError"
 import {logger} from "../logger"
 import {HttpStatus} from "../HttpStatus"
 import {ApiResponse} from "../ApiResponse"
-
+import {ErrorHandler} from "../ErrorHandler"
+import {RequestExtended} from "../types/RequestExtended"
 
 export const responseMiddleware = () => {
 
-    return (data : any, req : express.Request, res : express.Response, next : express.NextFunction) => {
+    return async (data : any, req : RequestExtended, res : express.Response, next : express.NextFunction) => {
+
         if(data instanceof Error) {
             logger.error(data.message)
+
+            await ErrorHandler.handle(data.message, req)
 
             if(data instanceof ApiError) {
                 return res.status(data.code).json(data)
@@ -24,6 +28,7 @@ export const responseMiddleware = () => {
         }
 
         if(data instanceof ApiResponse) {
+
             return res.status(data.code).json(data)
         }
 

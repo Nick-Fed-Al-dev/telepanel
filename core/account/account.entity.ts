@@ -1,6 +1,6 @@
 import * as typeorm from "typeorm"
 
-@typeorm.Entity("Accounts")
+@typeorm.Entity("account")
 export class AccountEntity extends typeorm.BaseEntity {
 
     @typeorm.PrimaryGeneratedColumn()
@@ -12,17 +12,8 @@ export class AccountEntity extends typeorm.BaseEntity {
     @typeorm.Column()
     public phone : string
 
-    @typeorm.Column({nullable: true})
-    public username : string
-
-    @typeorm.Column({nullable: true})
-    public firstName : string
-
-    @typeorm.Column({nullable: true})
-    public lastName : string
-
-    @typeorm.Column({nullable: true})
-    public bio : string
+    @typeorm.Column({default: false})
+    public isAuthorized : boolean
 
     @typeorm.CreateDateColumn({type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)"})
     public createdAt : Date

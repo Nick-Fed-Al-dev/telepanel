@@ -1,17 +1,18 @@
 
-export class DataAccountDto {
+export class DataAccountDataDto {
 
-    public phone : string
     public username : string
     public firstName : string
     public lastName : string
     public bio : string
+    public photo : any
 
     constructor(object : any) {
-        this.phone = object.phone
         this.username = object.username
         this.firstName = object.firstName
         this.lastName = object.lastName
         this.bio = object.bio
+        this.photo = object.photo
     }
+
 }

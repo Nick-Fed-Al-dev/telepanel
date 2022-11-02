@@ -1,6 +1,6 @@
 import * as typeorm from "typeorm"
 
-@typeorm.Entity("Sessions")
+@typeorm.Entity("session")
 export class SessionEntity extends typeorm.BaseEntity {
 
     @typeorm.PrimaryGeneratedColumn()

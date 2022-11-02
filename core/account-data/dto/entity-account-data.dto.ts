@@ -1,24 +1,25 @@
 
-export class EntityClientDto {
+export class EntityAccountDataDto {
 
     public id : number
-    public clusterId : number
+    public accountId : number
     public username : string
+    public firstName : string
+    public lastName : string
     public bio : string
-    public groups : number[]
-    public isRefused : boolean
+    public photo : any
     public createdAt : Date
     public updatedAt : Date
 
     constructor(object : any) {
         this.id = object.id
-        this.clusterId = object.clusterId
+        this.accountId = object.accountId
         this.username = object.username
+        this.firstName = object.firstName
+        this.lastName = object.lastName
         this.bio = object.bio
-        this.groups = object.groups
-        this.isRefused = object.isRefused
+        this.photo = object.photo
         this.createdAt = object.createdAt
         this.updatedAt = object.updatedAt
     }
-
 }

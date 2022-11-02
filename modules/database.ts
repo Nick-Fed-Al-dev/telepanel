@@ -7,9 +7,9 @@ import {TariffEntity} from "../core/tariff/tariff.entity"
 import {ChargeEntity} from "../core/charge/charge.entity"
 import {AccountEntity} from "../core/account/account.entity"
 import {SessionEntity} from "../core/session/session.entity"
-import {ClusterEntity} from "../core/cluster/cluster.entity"
-import {ClientEntity} from "../core/client/client.entity"
-import {GroupEntity} from "../core/group/group.entity";
+import {AccountDataEntity} from "../core/account-data/account-data.entity"
+import {FloodEntity} from "../core/flood/flood.entity"
+import {TagEntity} from "../core/tag/tag.entity"
 
 const entities = [
     UserEntity,
@@ -18,9 +18,9 @@ const entities = [
     ChargeEntity,
     AccountEntity,
     SessionEntity,
-    ClusterEntity,
-    ClientEntity,
-    GroupEntity
+    AccountDataEntity,
+    FloodEntity,
+    TagEntity
 ]
 
 export const database = new DataSource(postgresqlConfig(entities))

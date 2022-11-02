@@ -22,9 +22,22 @@ export class SessionService {
     }
 
     public static async saveSession(createSessionDto : CreateSessionDto) : Promise<EntitySessionDto> {
-        const sessionEntity = await SessionEntity.create(createSessionDto as unknown as SessionEntity)
-        await sessionEntity.save()
-        const entitySessionDto = new EntitySessionDto(sessionEntity)
+
+        const sessionEntity = await SessionEntity.findOneBy({accountId: createSessionDto.accountId})
+
+        if(sessionEntity) {
+            sessionEntity.sessionName = createSessionDto.sessionName
+
+            await sessionEntity.save()
+
+            const entitySessionDto = new EntitySessionDto(sessionEntity)
+
+            return entitySessionDto
+        }
+
+        const newSessionEntity = await SessionEntity.create(createSessionDto as unknown as SessionEntity)
+        await newSessionEntity.save()
+        const entitySessionDto = new EntitySessionDto(newSessionEntity)
         return entitySessionDto
     }
 
